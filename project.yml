@@ -1,0 +1,101 @@
+name: Micropolis
+options:
+  bundleIdPrefix: com.coastandcorp
+  developmentLanguage: en
+  xcodeVersion: "27.2"
+  deploymentTarget:
+    macOS: "14.0"
+    iOS: "17.0"
+targets:
+  Micropolis:
+    type: application
+    supportedDestinations: [iOS, macOS]
+    sources:
+      - path: Sources
+      - path: Engine
+        compilerFlags: ["-w"]
+      - path: Resources/tiles.png
+        buildPhase: resources
+      - path: Resources/cities
+        type: folder
+        buildPhase: resources
+      - path: Resources/sprites
+        type: folder
+        buildPhase: resources
+      - path: Resources/tools
+        type: folder
+        buildPhase: resources
+      - path: Resources/sounds
+        type: folder
+        buildPhase: resources
+      - path: Resources/scenarios
+        type: folder
+        buildPhase: resources
+      - path: LICENSE
+        buildPhase: resources
+      - path: gpl-3.0.txt
+        buildPhase: resources
+      - path: MicropolisPublicNameLicense.md
+        buildPhase: resources
+      - path: MicropolisGPLLicenseNotice.md
+        buildPhase: resources
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: Micropolis
+        CFBundleLocalizations: [en, ja]
+        CFBundleAllowMixedLocalizations: true
+        CFBundleShortVersionString: "1.0.1"
+        CFBundleVersion: "2"
+        LSApplicationCategoryType: public.app-category.simulation-games
+        ITSAppUsesNonExemptEncryption: false
+        UISupportsDocumentBrowser: false
+        UIRequiresFullScreen: false
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: com.coastandcorp.micropolis.city
+            UTTypeDescription: Micropolis City
+            UTTypeConformsTo: [public.data]
+            UTTypeTagSpecification:
+              public.filename-extension: [cty]
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Micropolis City
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Owner
+            LSItemContentTypes: [com.coastandcorp.micropolis.city]
+    entitlements:
+      path: Sources/Micropolis.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-write: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.coastandcorp.app.micropolis
+        PRODUCT_NAME: Micropolis
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "2"
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_MACCATALYST: NO
+        CLANG_CXX_LANGUAGE_STANDARD: c++17
+        CLANG_ENABLE_OBJC_ARC: YES
+        SWIFT_OBJC_BRIDGING_HEADER: Sources/Bridge/Micropolis-Bridging-Header.h
+        HEADER_SEARCH_PATHS: ["$(SRCROOT)/Engine", "$(SRCROOT)/Sources/Bridge"]
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        DEVELOPMENT_TEAM: BMA995X5X6
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_HARDENED_RUNTIME: YES
+        GCC_OPTIMIZATION_LEVEL: s
+schemes:
+  Micropolis:
+    build:
+      targets:
+        Micropolis: all
+    run:
+      config: Debug
+    archive:
+      config: Release
